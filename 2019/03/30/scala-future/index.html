@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="简介将任务提交到线程池，来达到异步执行到效果 流程解析初始化先看一个 Future 用法的 例子1Future &amp;#123; println(&amp;quot;start future&amp;quot;) &amp;#125; 在 scala 的语法里，以下三种写法作用一样123Future &amp;#123;&amp;#125;Future () Future.apply() 进入到 Future.apply 方法12def a">
+<meta name="keywords" content="future,promise">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala Future 异步工具类解读">
+<meta property="og:url" content="http://wtog.github.io/2019/03/30/scala-future/index.html">
+<meta property="og:site_name" content="T-note">
+<meta property="og:description" content="简介将任务提交到线程池，来达到异步执行到效果 流程解析初始化先看一个 Future 用法的 例子1Future &amp;#123; println(&amp;quot;start future&amp;quot;) &amp;#125; 在 scala 的语法里，以下三种写法作用一样123Future &amp;#123;&amp;#125;Future () Future.apply() 进入到 Future.apply 方法12def a">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-31T15:16:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala Future 异步工具类解读">
+<meta name="twitter:description" content="简介将任务提交到线程池，来达到异步执行到效果 流程解析初始化先看一个 Future 用法的 例子1Future &amp;#123; println(&amp;quot;start future&amp;quot;) &amp;#125; 在 scala 的语法里，以下三种写法作用一样123Future &amp;#123;&amp;#125;Future () Future.apply() 进入到 Future.apply 方法12def a">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Scala Future 异步工具类解读</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://wtog.github.io/2019/03/30/scala-future/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/03/30/scala-future/&text=Scala Future 异步工具类解读"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/03/30/scala-future/&title=Scala Future 异步工具类解读"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/03/30/scala-future/&is_video=false&description=Scala Future 异步工具类解读"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Scala Future 异步工具类解读&body=Check out this article: http://wtog.github.io/2019/03/30/scala-future/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/03/30/scala-future/&title=Scala Future 异步工具类解读"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/03/30/scala-future/&title=Scala Future 异步工具类解读"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/03/30/scala-future/&title=Scala Future 异步工具类解读"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/03/30/scala-future/&title=Scala Future 异步工具类解读"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/03/30/scala-future/&name=Scala Future 异步工具类解读&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流程解析"><span class="toc-number">2.</span> <span class="toc-text">流程解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化"><span class="toc-number">2.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#执行任务-body-gt-T"><span class="toc-number">2.2.</span> <span class="toc-text">执行任务  body: =&gt; T</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Scala Future 异步工具类解读
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">T-note</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-03-29T16:05:48.000Z" itemprop="datePublished">2019-03-30</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/future/">future</a>, <a class="tag-link" href="/tags/promise/">promise</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>将任务提交到线程池，来达到异步执行到效果</p>
+<h2 id="流程解析"><a href="#流程解析" class="headerlink" title="流程解析"></a>流程解析</h2><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>先看一个 Future 用法的 例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Future &#123; println(&quot;start future&quot;) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 scala 的语法里，以下三种写法作用一样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Future &#123;&#125;</span><br><span class="line">Future () </span><br><span class="line">Future.apply()</span><br></pre></td></tr></table></figure></p>
+<p>进入到 Future.apply 方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def apply[T](body: =&gt;T)(implicit @deprecatedName(&apos;execctx) executor: ExecutionContext): Future[T] =</span><br><span class="line">    unit.map(_ =&gt; body)</span><br></pre></td></tr></table></figure></p>
+<p>unit 为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val unit: Future[Unit] = successful(())</span><br></pre></td></tr></table></figure></p>
+<p>再看 successful<br><figure class="highlight plain"><figcaption><span>it</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def successful[T](result: T): Future[T] = Promise.successful(result).future</span><br></pre></td></tr></table></figure></p>
+<p>进入到 Promise.successful()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def successful[T](result: T): Promise[T] = fromTry(Success(result))</span><br><span class="line"></span><br><span class="line">def fromTry[T](result: Try[T]): Promise[T] = impl.Promise.KeptPromise[T](result)</span><br></pre></td></tr></table></figure></p>
+<p>进入到 Promise.KeptPromise,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def apply[T](result: Try[T]): scala.concurrent.Promise[T] =</span><br><span class="line">  resolveTry(result) match &#123;</span><br><span class="line">    case s @ Success(_) =&gt; new Successful(s)</span><br><span class="line">    case f @ Failure(_) =&gt; new Failed(f)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>最终构造了一个 Kept 对象 <strong>Kept 是 Promise 的子类，Promise 是 Future 的子类</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Kept[T] extends Promise[T] </span><br><span class="line">Promise[T] extends scala.concurrent.Promise[T] with scala.concurrent.Future[T]</span><br></pre></td></tr></table></figure></p>
+<h3 id="执行任务-body-gt-T"><a href="#执行任务-body-gt-T" class="headerlink" title="执行任务  body: =&gt; T"></a>执行任务  <code>body: =&gt; T</code></h3><p>我们重回 Future.apply, 看看 unit.map(_ =&gt; body) 的逻辑<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def map[S](f: T =&gt; S)(implicit executor: ExecutionContext): Future[S] = transform(_ map f)</span><br></pre></td></tr></table></figure></p>
+<p>transform是一个抽象方法，所以我们去看 子类 Promise.transform 的实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import scala.concurrent.Future</span><br><span class="line">import scala.concurrent.impl.Promise.DefaultPromise</span><br><span class="line"></span><br><span class="line">override def transform[S](f: Try[T] =&gt; Try[S])(implicit executor: ExecutionContext): Future[S] = &#123;</span><br><span class="line">  val p = new DefaultPromise[S]() </span><br><span class="line">  onComplete &#123; result =&gt; p.complete(try f(result) catch &#123; case NonFatal(t) =&gt; Failure(t) &#125;) &#125;</span><br><span class="line">  p.future</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>根据 DefaultPromise 类的定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class DefaultPromise[T] extends AtomicReference[AnyRef](Nil) with Promise[T]</span><br><span class="line"></span><br><span class="line">val p = new DefaultPromise[S]() </span><br><span class="line">实际上是初始化了一个 AtomicReference[AnyRef](空的list)</span><br><span class="line">Nil = List.empty</span><br></pre></td></tr></table></figure></p>
+<p>接着我们看 DefaultPromise.onComplete 的实现, <strong>DefaultPromise 是 AtomicReference <code>无锁的对象引用</code> 的子类</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">final def onComplete[U](func: Try[T] =&gt; U)(implicit executor: ExecutionContext): Unit = dispatchOrAddCallback(new CallbackRunnable[T](executor.prepare(), func))</span><br><span class="line"></span><br><span class="line">@tailrec</span><br><span class="line">private def dispatchOrAddCallback(runnable: CallbackRunnable[T]): Unit = &#123;</span><br><span class="line">  get() match &#123;</span><br><span class="line">    case r: Try[_]          =&gt; runnable.executeWithValue(r.asInstanceOf[Try[T]])</span><br><span class="line">    case dp: DefaultPromise[_] =&gt; compressedRoot(dp).dispatchOrAddCallback(runnable)</span><br><span class="line">    case listeners: List[_] =&gt; if (compareAndSet(listeners, runnable :: listeners)) ()</span><br><span class="line">                                else dispatchOrAddCallback(runnable)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最终 runable.executeWithValue 执行，也就是 <code>CallbackRunnable.executeWithValue</code> 提交任务到线程池去执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private final class CallbackRunnable[T](val executor: ExecutionContext, val onComplete: Try[T] =&gt; Any) extends Runnable with OnCompleteRunnable &#123;</span><br><span class="line">  // must be filled in before running it</span><br><span class="line">  var value: Try[T] = null</span><br><span class="line"></span><br><span class="line">  override def run() = &#123;</span><br><span class="line">    require(value ne null) // must set value to non-null before running!</span><br><span class="line">    try onComplete(value) catch &#123; case NonFatal(e) =&gt; executor reportFailure e &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  def executeWithValue(v: Try[T]): Unit = &#123;</span><br><span class="line">    require(value eq null) // can&apos;t complete it twice</span><br><span class="line">    value = v</span><br><span class="line">    // Note that we cannot prepare the ExecutionContext at this point, since we might</span><br><span class="line">    // already be running on a different thread!</span><br><span class="line">    try executor.execute(this) catch &#123; case NonFatal(t) =&gt; executor reportFailure t &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看callbackRunnalbe的定义, 函数onComplete的实现为 Promise.transform 的实现中的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result =&gt; p.complete(try f(result) catch &#123; case NonFatal(t) =&gt; Failure(t) &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>最后 p.complete 会返回一个 Promise 对象也就是 Future对象本身<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def complete(result: Try[T]): this.type =</span><br><span class="line">    if (tryComplete(result)) this else throw new IllegalStateException(&quot;Promise already completed.&quot;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Future 执行流程</p>
+<ul>
+<li>创建Future 交给 Promise 对象管理，并将线程池引用传入到 Promise 对象中</li>
+<li>Promise 对 Future 里的任务进行调度执行</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流程解析"><span class="toc-number">2.</span> <span class="toc-text">流程解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化"><span class="toc-number">2.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#执行任务-body-gt-T"><span class="toc-number">2.2.</span> <span class="toc-text">执行任务  body: =&gt; T</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://wtog.github.io/2019/03/30/scala-future/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/03/30/scala-future/&text=Scala Future 异步工具类解读"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/03/30/scala-future/&title=Scala Future 异步工具类解读"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/03/30/scala-future/&is_video=false&description=Scala Future 异步工具类解读"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Scala Future 异步工具类解读&body=Check out this article: http://wtog.github.io/2019/03/30/scala-future/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/03/30/scala-future/&title=Scala Future 异步工具类解读"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/03/30/scala-future/&title=Scala Future 异步工具类解读"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/03/30/scala-future/&title=Scala Future 异步工具类解读"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/03/30/scala-future/&title=Scala Future 异步工具类解读"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/03/30/scala-future/&name=Scala Future 异步工具类解读&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 wangtong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
