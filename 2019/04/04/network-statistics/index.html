@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="T-note">
 <meta property="og:description" content="系统连接状态篇：查看TCP连接状态 统计多种状态的网络连接数  1netstat -n | awk &amp;apos;/^tcp/ &amp;#123;++state[$NF]&amp;#125;; END &amp;#123;for(key in state) print key, state[key]&amp;#125;&amp;apos;  /^tcp/: 滤出tcp开头的记录，屏蔽udp,socket等无关记录。 state[]: 相">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-05T06:19:58.000Z">
+<meta property="og:updated_time" content="2019-04-05T06:29:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络连接状态统计">
 <meta name="twitter:description" content="系统连接状态篇：查看TCP连接状态 统计多种状态的网络连接数  1netstat -n | awk &amp;apos;/^tcp/ &amp;#123;++state[$NF]&amp;#125;; END &amp;#123;for(key in state) print key, state[key]&amp;#125;&amp;apos;  /^tcp/: 滤出tcp开头的记录，屏蔽udp,socket等无关记录。 state[]: 相">
@@ -70,6 +70,8 @@
     <br>
     <span id="actions">
       <ul>
+        
+        <li><a class="icon" href="/2019/04/11/jstack/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2019/03/30/scala-future/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
