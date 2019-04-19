@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="T-note">
 <meta property="og:description" content="现象  slick3.1版本中,并发执行带事务的DBIOAction, 线程会卡住, 导致DB连接被占满, 产生死锁。 日志分析 应用日志 123456789101112131415161718192021222324252627282930313233343536373839404142434445462019-04-17 20:30:26.197 test [DEBUG] from slick">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-19T00:38:40.000Z">
+<meta property="og:updated_time" content="2019-04-19T00:46:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="slick 死锁分析">
 <meta name="twitter:description" content="现象  slick3.1版本中,并发执行带事务的DBIOAction, 线程会卡住, 导致DB连接被占满, 产生死锁。 日志分析 应用日志 123456789101112131415161718192021222324252627282930313233343536373839404142434445462019-04-17 20:30:26.197 test [DEBUG] from slick">
@@ -178,6 +178,22 @@
 
   </div>
 </article>
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: 'd3a08f482c755d6537e9',
+        clientSecret: '61cc3f4b6b88cbc8299846480faa5c9c5735676a',
+        repo: 'wtog.github.io',
+        owner: 'wtog',
+        admin: [''],
+        id: location.pathname,
+        distractionFreeMode: 'true'
+      })
+      gitalk.render('gitalk-container')           
+     </script>
 
 
 

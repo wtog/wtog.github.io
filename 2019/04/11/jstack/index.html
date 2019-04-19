@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="Java 中线程的状态 NEW 初始状态。 线程刚刚被创建，并且start()方法还未被调用   RUNNABLE 运行状态。 表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU   BLOCKED 阻塞状态。 表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代码块">
-<meta name="keywords" content="awk,jstack,线程">
+    <meta name="description" content="Java 中线程的状态 NEW 初始状态。  线程刚刚被创建，并且start()方法还未被调用   RUNNABLE 运行状态。  表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU   BLOCKED 阻塞状态。 表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代">
+<meta name="keywords" content="jstack,线程,awk">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jstack - 解读">
+<meta property="og:title" content="jstack 解读">
 <meta property="og:url" content="http://wtog.github.io/2019/04/11/jstack/index.html">
 <meta property="og:site_name" content="T-note">
-<meta property="og:description" content="Java 中线程的状态 NEW 初始状态。 线程刚刚被创建，并且start()方法还未被调用   RUNNABLE 运行状态。 表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU   BLOCKED 阻塞状态。 表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代码块">
+<meta property="og:description" content="Java 中线程的状态 NEW 初始状态。  线程刚刚被创建，并且start()方法还未被调用   RUNNABLE 运行状态。  表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU   BLOCKED 阻塞状态。 表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-12T00:03:21.000Z">
+<meta property="og:updated_time" content="2019-04-19T09:21:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jstack - 解读">
-<meta name="twitter:description" content="Java 中线程的状态 NEW 初始状态。 线程刚刚被创建，并且start()方法还未被调用   RUNNABLE 运行状态。 表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU   BLOCKED 阻塞状态。 表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代码块">
+<meta name="twitter:title" content="jstack 解读">
+<meta name="twitter:description" content="Java 中线程的状态 NEW 初始状态。  线程刚刚被创建，并且start()方法还未被调用   RUNNABLE 运行状态。  表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU   BLOCKED 阻塞状态。 表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代">
     
     
         
@@ -37,7 +37,7 @@
         
     
     <!-- title -->
-    <title>jstack - 解读</title>
+    <title>jstack 解读</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- rss -->
@@ -72,7 +72,7 @@
       <ul>
         
         
-        <li><a class="icon" href="/2019/04/04/network-statistics/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/04/05/postgre-sql/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -86,15 +86,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://wtog.github.io/2019/04/11/jstack/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/04/11/jstack/&text=jstack - 解读"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack - 解读"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/04/11/jstack/&is_video=false&description=jstack - 解读"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=jstack - 解读&body=Check out this article: http://wtog.github.io/2019/04/11/jstack/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack - 解读"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack - 解读"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack - 解读"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack - 解读"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/04/11/jstack/&name=jstack - 解读&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/04/11/jstack/&text=jstack 解读"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack 解读"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/04/11/jstack/&is_video=false&description=jstack 解读"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=jstack 解读&body=Check out this article: http://wtog.github.io/2019/04/11/jstack/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack 解读"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack 解读"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack 解读"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack 解读"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/04/11/jstack/&name=jstack 解读&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -111,7 +111,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        jstack - 解读
+        jstack 解读
     </h1>
 
 
@@ -139,11 +139,13 @@
 
   <div class="content" itemprop="articleBody">
     <h2 id="Java-中线程的状态"><a href="#Java-中线程的状态" class="headerlink" title="Java 中线程的状态"></a>Java 中线程的状态</h2><ul>
-<li>NEW 初始状态。<ul>
+<li><p>NEW 初始状态。</p>
+<ul>
 <li>线程刚刚被创建，并且start()方法还未被调用</li>
 </ul>
 </li>
-<li>RUNNABLE 运行状态。<ul>
+<li><p>RUNNABLE 运行状态。</p>
+<ul>
 <li>表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU</li>
 </ul>
 </li>
@@ -151,7 +153,7 @@
 <li>表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代码块</li>
 </ul>
 </li>
-<li>WAITING    等待状态。<ul>
+<li>WAITING 等待状态。<ul>
 <li>表示当前线程需要等待其他线程执行一些特殊操作，比如当前线程调用了a.wait()方法，它正在等待其他线程调用a.notify或a.notifyAll方法;如果当前线程调用了threada.join(),那么它在等待thread a执行完成</li>
 <li><strong>触发条件</strong>  <ul>
 <li>Object.wait() 不设置超时时间</li>
@@ -161,27 +163,43 @@
 </li>
 </ul>
 </li>
-<li>TIMED_WAITING    超时等待。<ul>
+<li>TIMED_WAITING 超时等待。<ul>
 <li>与WAITING的不同在于，该状态有超时时间</li>
 <li><strong>触发条件</strong><ul>
 <li>Object.wait(time)</li>
 <li>Thread.join(time)</li>
-<li>Thread.sleep(time) </li>
+<li>Thread.sleep(time)</li>
 <li>LockSupport.parkNanos(time)</li>
 <li>LockSupport.parkUntil(time)</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>TERMINATED 终止状态 <ul>
+<li>TERMINATED 终止状态<ul>
 <li>表示当前线程已经执行完毕</li>
 </ul>
 </li>
 </ul>
-<h2 id="统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件"><a href="#统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件" class="headerlink" title="统计 jstack 中各个状态的线程数量 slick-dead: 线程堆栈文件"></a>统计 jstack 中各个状态的线程数量 <em>slick-dead: 线程堆栈文件</em></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F: &apos;/java.lang.Thread.State/ &#123;c[$2]++&#125;; END &#123;for(t in c) print t, c[t]&#125;&apos; slick-dead | sort -rn -k 2</span><br></pre></td></tr></table></figure>
+<h2 id="统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件"><a href="#统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件" class="headerlink" title="统计 jstack 中各个状态的线程数量 slick-dead: 线程堆栈文件"></a>统计 jstack 中各个状态的线程数量 <em>slick-dead: 线程堆栈文件</em></h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F: <span class="string">'/java.lang.Thread.State/ &#123;c[$2]++&#125;; END &#123;for(t in c) print t, c[t]&#125;'</span> slick-dead | sort -rn -k <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
   </div>
 </article>
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: 'd3a08f482c755d6537e9',
+        clientSecret: '61cc3f4b6b88cbc8299846480faa5c9c5735676a',
+        repo: 'wtog.github.io',
+        owner: 'wtog',
+        admin: [''],
+        id: location.pathname,
+        distractionFreeMode: 'true'
+      })
+      gitalk.render('gitalk-container')           
+     </script>
 
 
 
@@ -213,15 +231,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://wtog.github.io/2019/04/11/jstack/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/04/11/jstack/&text=jstack - 解读"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack - 解读"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/04/11/jstack/&is_video=false&description=jstack - 解读"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=jstack - 解读&body=Check out this article: http://wtog.github.io/2019/04/11/jstack/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack - 解读"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack - 解读"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack - 解读"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack - 解读"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/04/11/jstack/&name=jstack - 解读&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/04/11/jstack/&text=jstack 解读"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack 解读"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/04/11/jstack/&is_video=false&description=jstack 解读"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=jstack 解读&body=Check out this article: http://wtog.github.io/2019/04/11/jstack/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack 解读"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack 解读"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack 解读"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/04/11/jstack/&title=jstack 解读"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/04/11/jstack/&name=jstack 解读&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
