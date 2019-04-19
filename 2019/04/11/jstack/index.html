@@ -7,14 +7,14 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Java 中线程的状态 NEW 初始状态。 线程刚刚被创建，并且start()方法还未被调用   RUNNABLE 运行状态。 表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU   BLOCKED 阻塞状态。 表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代码块">
-<meta name="keywords" content="jstack,线程">
+<meta name="keywords" content="awk,jstack,线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jstack - 解读">
 <meta property="og:url" content="http://wtog.github.io/2019/04/11/jstack/index.html">
 <meta property="og:site_name" content="T-note">
 <meta property="og:description" content="Java 中线程的状态 NEW 初始状态。 线程刚刚被创建，并且start()方法还未被调用   RUNNABLE 运行状态。 表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU   BLOCKED 阻塞状态。 表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代码块">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-11T05:00:22.000Z">
+<meta property="og:updated_time" content="2019-04-12T00:03:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jstack - 解读">
 <meta name="twitter:description" content="Java 中线程的状态 NEW 初始状态。 线程刚刚被创建，并且start()方法还未被调用   RUNNABLE 运行状态。 表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU   BLOCKED 阻塞状态。 表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代码块">
@@ -99,7 +99,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-中线程的状态"><span class="toc-number">1.</span> <span class="toc-text">Java 中线程的状态</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-中线程的状态"><span class="toc-number">1.</span> <span class="toc-text">Java 中线程的状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件"><span class="toc-number">2.</span> <span class="toc-text">统计 jstack 中各个状态的线程数量 slick-dead: 线程堆栈文件</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -129,7 +129,7 @@
       
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/jstack/">jstack</a>, <a class="tag-link" href="/tags/线程/">线程</a>
+        <a class="tag-link" href="/tags/awk/">awk</a>, <a class="tag-link" href="/tags/jstack/">jstack</a>, <a class="tag-link" href="/tags/线程/">线程</a>
     </div>
 
 
@@ -178,6 +178,7 @@
 </ul>
 </li>
 </ul>
+<h2 id="统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件"><a href="#统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件" class="headerlink" title="统计 jstack 中各个状态的线程数量 slick-dead: 线程堆栈文件"></a>统计 jstack 中各个状态的线程数量 <em>slick-dead: 线程堆栈文件</em></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F: &apos;/java.lang.Thread.State/ &#123;c[$2]++&#125;; END &#123;for(t in c) print t, c[t]&#125;&apos; slick-dead | sort -rn -k 2</span><br></pre></td></tr></table></figure>
 
   </div>
 </article>
@@ -206,7 +207,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-中线程的状态"><span class="toc-number">1.</span> <span class="toc-text">Java 中线程的状态</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-中线程的状态"><span class="toc-number">1.</span> <span class="toc-text">Java 中线程的状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件"><span class="toc-number">2.</span> <span class="toc-text">统计 jstack 中各个状态的线程数量 slick-dead: 线程堆栈文件</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
