@@ -9,14 +9,14 @@
     <meta name="description" content="查询是否锁表了 12select oid from pg_class where relname=&apos;可能锁表了的表&apos;select pid from pg_locks where relation=&apos;上面查出的oid&apos;  释放锁定表 1select pg_cancel_backend(pg_locks.pid)  索引 1select * from pg_indexes where tablena">
 <meta name="keywords" content="postgre">
 <meta property="og:type" content="article">
-<meta property="og:title" content="postgreSQL 常用命令">
+<meta property="og:title" content="PostgreSQL 常用命令">
 <meta property="og:url" content="http://wtog.github.io/2019/04/05/postgre-sql.html">
 <meta property="og:site_name" content="T-note">
 <meta property="og:description" content="查询是否锁表了 12select oid from pg_class where relname=&apos;可能锁表了的表&apos;select pid from pg_locks where relation=&apos;上面查出的oid&apos;  释放锁定表 1select pg_cancel_backend(pg_locks.pid)  索引 1select * from pg_indexes where tablena">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-19T14:12:30.000Z">
+<meta property="og:updated_time" content="2019-07-29T14:19:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="postgreSQL 常用命令">
+<meta name="twitter:title" content="PostgreSQL 常用命令">
 <meta name="twitter:description" content="查询是否锁表了 12select oid from pg_class where relname=&apos;可能锁表了的表&apos;select pid from pg_locks where relation=&apos;上面查出的oid&apos;  释放锁定表 1select pg_cancel_backend(pg_locks.pid)  索引 1select * from pg_indexes where tablena">
     
     
@@ -37,7 +37,7 @@
         
     
     <!-- title -->
-    <title>postgreSQL 常用命令</title>
+    <title>PostgreSQL 常用命令</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- rss -->
@@ -88,15 +88,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://wtog.github.io/2019/04/05/postgre-sql.html"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/04/05/postgre-sql.html&text=postgreSQL 常用命令"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=postgreSQL 常用命令"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/04/05/postgre-sql.html&is_video=false&description=postgreSQL 常用命令"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=postgreSQL 常用命令&body=Check out this article: http://wtog.github.io/2019/04/05/postgre-sql.html"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=postgreSQL 常用命令"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=postgreSQL 常用命令"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=postgreSQL 常用命令"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=postgreSQL 常用命令"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/04/05/postgre-sql.html&name=postgreSQL 常用命令&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/04/05/postgre-sql.html&text=PostgreSQL 常用命令"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=PostgreSQL 常用命令"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/04/05/postgre-sql.html&is_video=false&description=PostgreSQL 常用命令"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PostgreSQL 常用命令&body=Check out this article: http://wtog.github.io/2019/04/05/postgre-sql.html"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=PostgreSQL 常用命令"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=PostgreSQL 常用命令"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=PostgreSQL 常用命令"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=PostgreSQL 常用命令"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/04/05/postgre-sql.html&name=PostgreSQL 常用命令&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -113,7 +113,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        postgreSQL 常用命令
+        PostgreSQL 常用命令
     </h1>
 
 
@@ -200,15 +200,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://wtog.github.io/2019/04/05/postgre-sql.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/04/05/postgre-sql.html&text=postgreSQL 常用命令"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=postgreSQL 常用命令"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/04/05/postgre-sql.html&is_video=false&description=postgreSQL 常用命令"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=postgreSQL 常用命令&body=Check out this article: http://wtog.github.io/2019/04/05/postgre-sql.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=postgreSQL 常用命令"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=postgreSQL 常用命令"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=postgreSQL 常用命令"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=postgreSQL 常用命令"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/04/05/postgre-sql.html&name=postgreSQL 常用命令&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/04/05/postgre-sql.html&text=PostgreSQL 常用命令"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=PostgreSQL 常用命令"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/04/05/postgre-sql.html&is_video=false&description=PostgreSQL 常用命令"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=PostgreSQL 常用命令&body=Check out this article: http://wtog.github.io/2019/04/05/postgre-sql.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=PostgreSQL 常用命令"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=PostgreSQL 常用命令"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=PostgreSQL 常用命令"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/04/05/postgre-sql.html&title=PostgreSQL 常用命令"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/04/05/postgre-sql.html&name=PostgreSQL 常用命令&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
