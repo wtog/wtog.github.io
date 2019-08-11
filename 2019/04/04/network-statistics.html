@@ -7,7 +7,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="系统连接状态篇：查看TCP连接状态 统计多种状态的网络连接数  1234567891011netstat -n | awk &apos;/^tcp/ &amp;#123;++state[$NF]&amp;#125;; END &amp;#123;for(key in state) print key, state[key]&amp;#125;&apos;注释/^tcp/: 滤出tcp开头的记录，屏蔽udp,socket等无关记录。state[]:">
-<meta name="keywords" content="netstat,awk">
+<meta name="keywords" content="awk,netstat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络连接状态统计">
 <meta property="og:url" content="http://wtog.github.io/2019/04/04/network-statistics.html">
