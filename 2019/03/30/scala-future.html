@@ -10,7 +10,7 @@
 <meta name="keywords" content="scala,future,promise">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scala Future 异步工具类解读">
-<meta property="og:url" content="http://wtog.github.io/2019/03/30/scala-future.html">
+<meta property="og:url" content="https://www.wtog.fun/2019/03/30/scala-future.html">
 <meta property="og:site_name" content="T-note">
 <meta property="og:description" content="简介将任务提交到线程池，来达到异步执行到效果 流程解析初始化先看一个 Future 用法的 例子 1Future &amp;#123; println(&quot;start future&quot;) &amp;#125; 在 scala 的语法里，以下三种写法作用一样 123Future &amp;#123;&amp;#125;Future ()Future.apply() 进入到 Future.apply 方法 12def apply[T](">
 <meta property="og:locale" content="default">
@@ -85,16 +85,16 @@
     <br>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://wtog.github.io/2019/03/30/scala-future.html"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/03/30/scala-future.html&text=Scala Future 异步工具类解读"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/03/30/scala-future.html&is_video=false&description=Scala Future 异步工具类解读"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Scala Future 异步工具类解读&body=Check out this article: http://wtog.github.io/2019/03/30/scala-future.html"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/03/30/scala-future.html&name=Scala Future 异步工具类解读&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://www.wtog.fun/2019/03/30/scala-future.html"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://www.wtog.fun/2019/03/30/scala-future.html&text=Scala Future 异步工具类解读"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://www.wtog.fun/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.wtog.fun/2019/03/30/scala-future.html&is_video=false&description=Scala Future 异步工具类解读"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Scala Future 异步工具类解读&body=Check out this article: https://www.wtog.fun/2019/03/30/scala-future.html"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://www.wtog.fun/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://www.wtog.fun/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://www.wtog.fun/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://www.wtog.fun/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://www.wtog.fun/2019/03/30/scala-future.html&name=Scala Future 异步工具类解读&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -223,16 +223,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://wtog.github.io/2019/03/30/scala-future.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/03/30/scala-future.html&text=Scala Future 异步工具类解读"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/03/30/scala-future.html&is_video=false&description=Scala Future 异步工具类解读"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Scala Future 异步工具类解读&body=Check out this article: http://wtog.github.io/2019/03/30/scala-future.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/03/30/scala-future.html&name=Scala Future 异步工具类解读&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://www.wtog.fun/2019/03/30/scala-future.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://www.wtog.fun/2019/03/30/scala-future.html&text=Scala Future 异步工具类解读"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://www.wtog.fun/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.wtog.fun/2019/03/30/scala-future.html&is_video=false&description=Scala Future 异步工具类解读"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Scala Future 异步工具类解读&body=Check out this article: https://www.wtog.fun/2019/03/30/scala-future.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://www.wtog.fun/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://www.wtog.fun/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://www.wtog.fun/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://www.wtog.fun/2019/03/30/scala-future.html&title=Scala Future 异步工具类解读"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://www.wtog.fun/2019/03/30/scala-future.html&name=Scala Future 异步工具类解读&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

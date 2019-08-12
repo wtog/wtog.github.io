@@ -10,7 +10,7 @@
 <meta name="keywords" content="scala,调用链追踪">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scala 调用链追踪">
-<meta property="og:url" content="http://wtog.github.io/2019/04/24/scala-call-chain-trace.html">
+<meta property="og:url" content="https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html">
 <meta property="og:site_name" content="T-note">
 <meta property="og:description" content="背景分布式服务系统中，通过透传一个 traceId，就可以做到链路追踪服务与服务之间调用链路可以很清晰的描述出服务与服务之间的依赖关系但是 系统内部如何 把 这个 traceId 在线程之间传递，并封装在返回结果中？ 实现调用链如果是同步调用，一个线程处理所有请求，此时可以用跟 线程绑定的 ThreadLocal 来实现, 这个很好理解 如果是异步调用，一个事务处理逻辑中会有多个线程参与执行，我们">
 <meta property="og:locale" content="default">
@@ -87,16 +87,16 @@
     <br>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&text=Scala 调用链追踪"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&is_video=false&description=Scala 调用链追踪"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Scala 调用链追踪&body=Check out this article: http://wtog.github.io/2019/04/24/scala-call-chain-trace.html"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&name=Scala 调用链追踪&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&text=Scala 调用链追踪"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&is_video=false&description=Scala 调用链追踪"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Scala 调用链追踪&body=Check out this article: https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&name=Scala 调用链追踪&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -208,16 +208,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&text=Scala 调用链追踪"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&is_video=false&description=Scala 调用链追踪"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Scala 调用链追踪&body=Check out this article: http://wtog.github.io/2019/04/24/scala-call-chain-trace.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/04/24/scala-call-chain-trace.html&name=Scala 调用链追踪&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&text=Scala 调用链追踪"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&is_video=false&description=Scala 调用链追踪"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Scala 调用链追踪&body=Check out this article: https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&title=Scala 调用链追踪"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://www.wtog.fun/2019/04/24/scala-call-chain-trace.html&name=Scala 调用链追踪&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

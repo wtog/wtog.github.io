@@ -10,7 +10,7 @@
 <meta name="keywords" content="jstack,线程,awk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jstack 解读">
-<meta property="og:url" content="http://wtog.github.io/2019/04/11/jstack.html">
+<meta property="og:url" content="https://www.wtog.fun/2019/04/11/jstack.html">
 <meta property="og:site_name" content="T-note">
 <meta property="og:description" content="Java 中线程的状态 NEW 初始状态。  线程刚刚被创建，并且start()方法还未被调用   RUNNABLE 运行状态。  表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU   BLOCKED 阻塞状态。 表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代">
 <meta property="og:locale" content="default">
@@ -87,16 +87,16 @@
     <br>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://wtog.github.io/2019/04/11/jstack.html"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/04/11/jstack.html&text=Jstack 解读"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/04/11/jstack.html&is_video=false&description=Jstack 解读"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Jstack 解读&body=Check out this article: http://wtog.github.io/2019/04/11/jstack.html"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/04/11/jstack.html&name=Jstack 解读&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://www.wtog.fun/2019/04/11/jstack.html"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://www.wtog.fun/2019/04/11/jstack.html&text=Jstack 解读"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.wtog.fun/2019/04/11/jstack.html&is_video=false&description=Jstack 解读"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Jstack 解读&body=Check out this article: https://www.wtog.fun/2019/04/11/jstack.html"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://www.wtog.fun/2019/04/11/jstack.html&name=Jstack 解读&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -232,16 +232,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://wtog.github.io/2019/04/11/jstack.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://wtog.github.io/2019/04/11/jstack.html&text=Jstack 解读"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://wtog.github.io/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://wtog.github.io/2019/04/11/jstack.html&is_video=false&description=Jstack 解读"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Jstack 解读&body=Check out this article: http://wtog.github.io/2019/04/11/jstack.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://wtog.github.io/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://wtog.github.io/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://wtog.github.io/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://wtog.github.io/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://wtog.github.io/2019/04/11/jstack.html&name=Jstack 解读&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://www.wtog.fun/2019/04/11/jstack.html"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://www.wtog.fun/2019/04/11/jstack.html&text=Jstack 解读"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.wtog.fun/2019/04/11/jstack.html&is_video=false&description=Jstack 解读"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Jstack 解读&body=Check out this article: https://www.wtog.fun/2019/04/11/jstack.html"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://www.wtog.fun/2019/04/11/jstack.html&name=Jstack 解读&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
