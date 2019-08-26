@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
-    <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Java 中线程的状态 NEW 初始状态。  线程刚刚被创建，并且start()方法还未被调用   RUNNABLE 运行状态。  表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU   BLOCKED 阻塞状态。 表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代">
-<meta name="keywords" content="jstack,线程,awk">
+<meta name="keywords" content="awk,jstack,线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jstack 解读">
 <meta property="og:url" content="https://www.wtog.fun/2019/04/11/jstack.html">
@@ -37,7 +36,7 @@
         
     
     <!-- title -->
-    <title>Jstack 解读</title>
+    <title>Jstack 解读 | wtog</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- rss -->
@@ -79,8 +78,12 @@
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
       </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
+      
+        <span id="i-prev" class="info" style="display:none;">Scala 调用链追踪</span> 
+      
+      
+        <span id="i-next" class="info" style="display:none;">PostgreSQL 常用命令</span> 
+      
       <span id="i-top" class="info" style="display:none;">Back to top</span>
       <span id="i-share" class="info" style="display:none;">Share post</span>
     </span>
@@ -185,7 +188,23 @@
 <h2 id="统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件"><a href="#统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件" class="headerlink" title="统计 jstack 中各个状态的线程数量 slick-dead: 线程堆栈文件"></a>统计 jstack 中各个状态的线程数量 <em>slick-dead: 线程堆栈文件</em></h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F: <span class="string">'/java.lang.Thread.State/ &#123;c[$2]++&#125;; END &#123;for(t in c) print t, c[t]&#125;'</span> slick-dead | sort -rn -k <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
   </div>
+  <div id="share" style="display:none">
+    <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://www.wtog.fun/2019/04/11/jstack.html"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://www.wtog.fun/2019/04/11/jstack.html&text=Jstack 解读"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.wtog.fun/2019/04/11/jstack.html&is_video=false&description=Jstack 解读"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Jstack 解读&body=Check out this article: https://www.wtog.fun/2019/04/11/jstack.html"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://www.wtog.fun/2019/04/11/jstack.html&title=Jstack 解读"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://www.wtog.fun/2019/04/11/jstack.html&name=Jstack 解读&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+  </div>
 </article>
+ 
 
 <div id="gitalk-container"></div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.5.0/gitalk.min.css">
