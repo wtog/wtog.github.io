@@ -6,7 +6,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Java 中线程的状态 NEW 初始状态。  线程刚刚被创建，并且start()方法还未被调用   RUNNABLE 运行状态。  表示线程正在java虚拟机中执行，但是可能正在等待操作系统的其他资源，比如CPU   BLOCKED 阻塞状态。 表示线程正在等待监视器锁。表示线程正在等待获取监视器锁，以便进入同步方法或者同步代码快，也有可能是从wait（）方法被唤醒而等待再次进入同步方法或者同步代">
-<meta name="keywords" content="awk,jstack,线程">
+<meta name="keywords" content="jstack,线程,awk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jstack 解读">
 <meta property="og:url" content="https://www.wtog.fun/2019/04/11/jstack.html">
@@ -188,6 +188,16 @@
 <h2 id="统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件"><a href="#统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件" class="headerlink" title="统计 jstack 中各个状态的线程数量 slick-dead: 线程堆栈文件"></a>统计 jstack 中各个状态的线程数量 <em>slick-dead: 线程堆栈文件</em></h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F: <span class="string">'/java.lang.Thread.State/ &#123;c[$2]++&#125;; END &#123;for(t in c) print t, c[t]&#125;'</span> slick-dead | sort -rn -k <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
   </div>
+  <ul style="display:flex;justify-content:space-between;overflow:hidden;padding-inline-start:0px;list-style-type:none;">
+      
+      <li>
+        <a class="icon" href="/2019/04/24/scala-call-chain-trace.html"><i class="fa fa-chevron-left"></i> Scala 调用链追踪</a>
+      </li>
+      
+      
+      <li><a class="icon" href="/2019/04/05/postgre-sql.html">PostgreSQL 常用命令 <i class="fa fa-chevron-right"></i></a></li>
+      
+  </ul>
   <div id="share" style="display:none">
     <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://www.wtog.fun/2019/04/11/jstack.html"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
@@ -218,6 +228,7 @@
         admin: ['wtog'],
         labels: ['note'],
         id: window.location.pathname,
+        title: 'Jstack 解读',
         distractionFreeMode: "false"
     })
     gitalk.render('gitalk-container')           

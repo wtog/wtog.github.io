@@ -6,7 +6,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="系统连接状态篇：查看TCP连接状态 统计多种状态的网络连接数  1234567891011netstat -n | awk &apos;/^tcp/ &amp;#123;++state[$NF]&amp;#125;; END &amp;#123;for(key in state) print key, state[key]&amp;#125;&apos;注释/^tcp/: 滤出tcp开头的记录，屏蔽udp,socket等无关记录。state[]:">
-<meta name="keywords" content="netstat,awk">
+<meta name="keywords" content="awk,netstat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络连接状态统计">
 <meta property="og:url" content="https://www.wtog.fun/2019/04/04/network-statistics.html">
@@ -211,6 +211,16 @@
 </ol>
 
   </div>
+  <ul style="display:flex;justify-content:space-between;overflow:hidden;padding-inline-start:0px;list-style-type:none;">
+      
+      <li>
+        <a class="icon" href="/2019/04/05/postgre-sql.html"><i class="fa fa-chevron-left"></i> PostgreSQL 常用命令</a>
+      </li>
+      
+      
+      <li><a class="icon" href="/2019/04/03/slick-deadlock.html">Slick 死锁分析 <i class="fa fa-chevron-right"></i></a></li>
+      
+  </ul>
   <div id="share" style="display:none">
     <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://www.wtog.fun/2019/04/04/network-statistics.html"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
@@ -241,6 +251,7 @@
         admin: ['wtog'],
         labels: ['note'],
         id: window.location.pathname,
+        title: '网络连接状态统计',
         distractionFreeMode: "false"
     })
     gitalk.render('gitalk-container')           
