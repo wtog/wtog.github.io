@@ -210,11 +210,11 @@
         owner: 'wtog',
         admin: ['wtog'],
         labels: ['note'],
-        id: window.location.pathname,
+        id: window.location.pathname.replace(/([\/\d{1,}]{1,})|(.html)/g, ''),
         title: 'Classloader 是怎么工作的',
         distractionFreeMode: "false"
     })
-    gitalk.render('gitalk-container')           
+    gitalk.render('gitalk-container');
 </script>
 
 

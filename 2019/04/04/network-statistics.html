@@ -248,11 +248,11 @@
         owner: 'wtog',
         admin: ['wtog'],
         labels: ['note'],
-        id: window.location.pathname,
+        id: window.location.pathname.replace(/([\/\d{1,}]{1,})|(.html)/g, ''),
         title: '网络连接状态统计',
         distractionFreeMode: "false"
     })
-    gitalk.render('gitalk-container')           
+    gitalk.render('gitalk-container');
 </script>
 
 

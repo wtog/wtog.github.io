@@ -212,11 +212,11 @@
         owner: 'wtog',
         admin: ['wtog'],
         labels: ['note'],
-        id: window.location.pathname,
+        id: window.location.pathname.replace(/([\/\d{1,}]{1,})|(.html)/g, ''),
         title: 'Scala Future 异步工具类解读',
         distractionFreeMode: "false"
     })
-    gitalk.render('gitalk-container')           
+    gitalk.render('gitalk-container');
 </script>
 
 

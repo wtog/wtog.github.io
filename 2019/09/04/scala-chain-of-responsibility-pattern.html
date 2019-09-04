@@ -6,14 +6,14 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="demo123456789101112131415161718192021222324252627282930313233trait L &amp;#123;  def p(x: Int): Int = throw new IllegalStateException(&quot;aa&quot;)&amp;#125;trait L1 extends L &amp;#123;  override def p(x: Int): Int = &amp;#">
-<meta name="keywords" content="scala,责任链">
+<meta name="keywords" content="scala,设计模式,责任链">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scala 设计模式 责任链">
 <meta property="og:url" content="https://www.wtog.fun/2019/09/04/scala-chain-of-responsibility-pattern.html">
 <meta property="og:site_name" content="T-note">
 <meta property="og:description" content="demo123456789101112131415161718192021222324252627282930313233trait L &amp;#123;  def p(x: Int): Int = throw new IllegalStateException(&quot;aa&quot;)&amp;#125;trait L1 extends L &amp;#123;  override def p(x: Int): Int = &amp;#">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-04T11:03:16.000Z">
+<meta property="og:updated_time" content="2019-09-04T11:09:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scala 设计模式 责任链">
 <meta name="twitter:description" content="demo123456789101112131415161718192021222324252627282930313233trait L &amp;#123;  def p(x: Int): Int = throw new IllegalStateException(&quot;aa&quot;)&amp;#125;trait L1 extends L &amp;#123;  override def p(x: Int): Int = &amp;#">
@@ -130,7 +130,7 @@
       
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/scala/">scala</a>, <a class="tag-link" href="/tags/责任链/">责任链</a>
+        <a class="tag-link" href="/tags/scala/">scala</a>, <a class="tag-link" href="/tags/设计模式/">设计模式</a>, <a class="tag-link" href="/tags/责任链/">责任链</a>
     </div>
 
 
@@ -180,11 +180,11 @@
         owner: 'wtog',
         admin: ['wtog'],
         labels: ['note'],
-        id: window.location.pathname,
+        id: window.location.pathname.replace(/([\/\d{1,}]{1,})|(.html)/g, ''),
         title: 'Scala 设计模式 责任链',
         distractionFreeMode: "false"
     })
-    gitalk.render('gitalk-container')           
+    gitalk.render('gitalk-container');
 </script>
 
 
