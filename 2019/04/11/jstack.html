@@ -188,16 +188,14 @@
 <h2 id="统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件"><a href="#统计-jstack-中各个状态的线程数量-slick-dead-线程堆栈文件" class="headerlink" title="统计 jstack 中各个状态的线程数量 slick-dead: 线程堆栈文件"></a>统计 jstack 中各个状态的线程数量 <em>slick-dead: 线程堆栈文件</em></h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F: <span class="string">'/java.lang.Thread.State/ &#123;c[$2]++&#125;; END &#123;for(t in c) print t, c[t]&#125;'</span> slick-dead | sort -rn -k <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
   </div>
-  <ul style="display:flex;justify-content:space-between;overflow:hidden;padding-inline-start:0px;list-style-type:none;">
+  <ul style="display:flex;justify-content:space-between;overflow:hidden;padding-inline-start:0px;border-top:1px solid #0000000f;list-style-type: none;">
       
-      <li>
-        <a class="icon" href="/2019/04/24/scala-call-chain-trace.html"><i class="fa fa-chevron-left"></i> Scala 调用链追踪</a>
-      </li>
+      <li style="padding-top:10px"><a class="icon" href="/2019/04/24/scala-call-chain-trace.html"><i class="fa fa-chevron-left"></i> Scala 调用链追踪</a></li>
       
       
-      <li><a class="icon" href="/2019/04/05/postgre-sql.html">PostgreSQL 常用命令 <i class="fa fa-chevron-right"></i></a></li>
+      <li style="padding-top:10px"><a class="icon" href="/2019/04/05/postgre-sql.html">PostgreSQL 常用命令 <i class="fa fa-chevron-right"></i></a></li>
       
-  </ul>
+    </ul>
   <div id="share" style="display:none">
     <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://www.wtog.fun/2019/04/11/jstack.html"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
