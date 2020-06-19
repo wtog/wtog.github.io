@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>JVM GC 调参 vs 调优</title>
+      <link href="/2020/06/18/jvm-gc-tunning.html"/>
+      <url>/2020/06/18/jvm-gc-tunning.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="分代收集"><a href="#分代收集" class="headerlink" title="分代收集"></a>分代收集</h2><p>Java 中在一小段代码中大量的对象被快速地创建和丢弃，这种操作是非常普遍的。</p><p>垃圾收集器设计时特别考虑要处理大量（有时候是大多数）临时对象，这是分代设计的初衷之一。</p><ul><li>新生代<ul><li>对象首先在新生代中分配。新生代填满时，垃圾收集器会暂停所有的应用线程，回收新生代空间。不再使用的对象会被回收，仍然在使用的对象会被移动到其他地方。这种操作被称为 Minor GC，又称 Young GC。</li><li>采用这种设计有两个性能上的优势<ul><li>新生代仅是堆的一部分，与处理整个堆相比，处理新生代的速度要更快，也就意味着应用线程停顿的时间会更短</li><li>新生代分为 Eden 区 和两个 Survivor 空间，新生代的对象起初都分配在 Eden 区，垃圾收集时，Eden 区的对象要么被回收，要么就被移动到老年代，要么被移动到 Survivor 空间(两个 Survivor 空间会来回倒换不能被回收的对象，当超过一定的倒换次数，才会被挪到老年代)，这样相当于给新生代做了一次压缩整理</li></ul></li></ul></li><li>老年代<ul><li>新生代回收之后的依然存活的对象不断的挪到老年代，老年代就会被填满。JVM 就需要对整个堆进行垃圾回收，这个过程被成为 FullGC。</li></ul></li></ul><h2 id="GC-算法"><a href="#GC-算法" class="headerlink" title="GC 算法"></a>GC 算法</h2><ol><li>Serial 垃圾收集器<ul><li>使用单线程清理堆的内容。</li><li>无论是 Minor GC 还是 Full GC，清理堆空间时，所有线程都会被暂停。</li><li>进行 Full GC 时，还会对老年代空间的对象进行压缩整理。</li><li>通过 -XX:+UseSerialGC 标志可以启用 Serial 收集器</li></ul></li><li>Parallel 垃圾收集器，也叫 Throughput 收集器<ul><li>多线程回收新生代和老年代，Minor GC 的速度要比 Serial 收集器快的多。</li><li>Minor GC 和 Full GC 的时候，会暂停所有线程，Full GC 也会对老年代进行压缩整理</li><li>通过 -XX:+UserParallelGC -XX:UseParallelOldGC 启用 Parallel 收集器</li></ul></li><li>CMS 收集器<ul><li>CMS 设计初衷是为了降低 Full GC 周期中的长时间停顿。</li><li>Minor GC 会暂停所有线程，并以多线程的方式进行垃圾回收。</li><li>使用若干个后台线程定期的对老年代空间进行扫描，通过 标记，清除等操作及时回收其中不再使用的对象。这种算法使 CMS 成为一个低延迟的收集器，应用线程仅在 Minor GC 以及后台扫描老年代时发生极其短暂的停顿，比起 Parallel 停顿总时长要短的多</li><li>额外付出的时更高的 CPU 使用，CMS 要求必须要有足够的 CPU 资源用于运行后台的垃圾收集线程</li><li>回收线程不进行任何压缩整理的工作，这意味着堆会逐渐变得碎片化。如果 CMS 的后台线程无法获得任务所需的 CPU 资源，或者堆变得过度碎片化以至于无法找到连续空间分配对象，CMS 就会蜕化到 Serial 收集器的行为：暂停所有应用线程，单线程回收，整理老年代空间。之后有恢复到并发运行，再次启动后台线程（直到下一次堆变得过度碎片化）</li><li>通过 -XX:+UseConcMarkSweepGC -XX:UseParNewGC 启用 CMS 收集器</li></ul></li><li>G1 垃圾收集器<ul><li>G1 设计初衷是为了尽量缩短处理超大堆（大于 4GB）时产生的停顿。</li><li>G1 算法将堆划分为若干个区域（Region），不过它依然属于分代收集器。利用多线程的方式来收集新生代和老年代</li><li>G1 算法属于 Concurrent 收集器。老年代的垃圾收集工作由后台线程完成，不需要暂停应用线程</li><li>G1 将老年代划分成不同的区域（Region），通过将对象从一个区域复制到另一个区域，完成对象的清理工作，也同时实现了堆的压缩整理，所以 G1 收集的堆不太容易发生碎片化</li><li>同 CMS 一样，避免 Full GC 的代价就是消耗额外的 CPU 周期</li><li>通过 -XX:+UseG1 启用 G1 收集器</li></ul></li></ol><h2 id="GC-算法选择"><a href="#GC-算法选择" class="headerlink" title="GC 算法选择"></a>GC 算法选择</h2><ul><li>如果应用线程可以最大程度的利用 CPU，使用 Parallel 通常能获得更好的性能</li><li>如果应用线程没有充分利用 CPU，则使用 Concurrent 往往能获得更好的性能</li><li>选择 Concurrent ，如果堆较小，推荐使用 CMS ，G1 的设计使得它能够在不同的分区（Region）处理堆，因此 G1 比 CMS 更易于处理超大堆的情况</li></ul><h2 id="GC-调优基础"><a href="#GC-调优基础" class="headerlink" title="GC 调优基础"></a>GC 调优基础</h2><ul><li>调整堆的大小<ul><li>不要将堆的容量设置得比机器的物理内存还大，通常情况下，至少要预留 1G 的内存空间</li><li>尽量通过调整 GC 算法进行调优，而不是调整堆的大小来改善程序性能</li></ul></li><li>代空间的调整<ul><li>整个堆的范围内，不同代的大小划分是由新生代所占用的空间控制的</li><li>-XX:NewRatio=N 设置新生代与老年代的空间占用比率</li><li>-XX:NewSize=N 设置新生代空间的初始大小</li><li>-XX:MaxNewSize=N 设置新生代空间的最大值</li><li>-XmnN 将 newSize 和 MaxNewSize 设定为同一个值的快捷方法</li></ul></li><li>永久代和元空间的调整<ul><li>Jdk7 中的永久代和 jdk8 中的元空间保存着类的元数据</li><li>永久代或元空间耗尽也会触发 Full GC，这时老的元数据会被丢弃回收</li></ul></li><li><p>控制 GC 并发线程的数量</p><ul><li><p>几乎所有的垃圾收集算法的回收线程数都依据机器上的 CPU 数据算出</p><p>N 为 CPU 的数目，每个 CPU 最多同时运行 8 个线程</p><p>$$ParallelGCThreads = 8 + ((N - 8) * 5 / 8)$$</p></li></ul></li><li><p>JVM 自适应调整</p><ul><li>JVM 默认会自适应的调整新生代和老年代的百分比</li><li>对于已经精细化调优过的堆，使用 -XX:-UseAdaptiveSizePolicy 可以在全局范围内关闭自适应调整</li></ul></li><li>垃圾回收工具<ul><li>-verbose:gc 或 -XX:+PrintGC 这两个标志中的任意一个都能创建基本的 GC 日志</li><li>使用 -XX:PrintGCDetails 可以创建更详细的 GC 日志</li><li>使用 -XX:+PrintGCTimeStamps 或 -XX:+PrintGCDateStamps 可以更精确的判断几次 GC 操作之间的时间</li><li>使用 jstat -gccause PID 1000 10 可以监控应用程序的垃圾回收过程</li></ul></li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://union-click.jd.com/jdc?e=&amp;p=AyIGZRhYFAEbBVAaUxYyEgdcE1wdCxs3EUQDS10iXhBeGlcJDBkNXg9JHU4YDk5ER1xOGRNLGEEcVV8BXURFUFdfC0RVU1JRUy1OVxUCGw9SE1IcMkEFKBsgdllyZ1VHA0tgYXIzaDppeGILWStaJQITBlUTWhUFFAVlK1sSMkBpja3tzaejG4Gx1MCKhTdUK1sRChECXBNfEwQSAVIrXBULIlAFTA9KWUpYA0g1STIiN1YrayUCIgRlWTURChAHVh0LHVBCBlYeUhMEGgUCSQ9BVxQEURoJR1IaBWUZWhQGGw%3D%3D" target="_blank" rel="noopener">Java 性能指南</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 性能优化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Chrome Driver 破解反爬</title>
       <link href="/2020/01/13/make-chromedriver-undetectable.html"/>
       <url>/2020/01/13/make-chromedriver-undetectable.html</url>
