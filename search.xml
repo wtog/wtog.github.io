@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>数仓概览</title>
+      <link href="/2020/07/30/data-warehouse.html"/>
+      <url>/2020/07/30/data-warehouse.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><ol><li>为什么要分层<ol><li>把复杂问题简单化<ol><li>将复杂的任务分解成多层来完成，每一层指处理简单的任务，方便定位问题</li></ol></li><li>减少重复开发<ol><li>规范数据分层，通过中间数据层，极大的减少重复计算，增加一次计算结果的复用性</li></ol></li><li>隔离原始数据<ol><li>真实数据与统计数据解偶开</li></ol></li></ol></li><li>维度建模<ol><li>星型模型<ol><li>维度只有一层</li></ol></li><li>雪花模型<ol><li>维度会有多层</li></ol></li></ol></li><li>分层<ol><li>ODS (Operation Data Store)<ol><li>原始数据层，保持数据原貌，不做处理</li><li>压缩存储</li><li>分区表，避免全表查询</li><li>Hive 内部表和外部表的区别<ol><li>删除内部表，会把元数据和原始数据全删除</li><li>删除内部表，只删除元数据，原始数据保留</li></ol></li></ol></li><li>DWD (Data Warehouse Detail)<ol><li>结构和粒度与原始表保持一致，对 ODS 层进行清洗</li><li>选择业务过程-》声明粒度-》确认维度-》确认事实</li></ol></li><li>DWS (Data Warehouse Service)<ol><li>以DWD为基础，按天进行轻度汇总</li></ol></li><li>DWT (Data Warehouse Topic)<ol><li>以DWS为基础，按主题进行汇总</li></ol></li><li>ADS (Application Data Store)<ol><li>为各种统计报表提供数据</li></ol></li></ol></li></ol><h2 id="数仓技术组件"><a href="#数仓技术组件" class="headerlink" title="数仓技术组件"></a>数仓技术组件</h2><ol><li>数据传输采集<ol><li>kafka, Flume, Sqoop, datax</li></ol></li><li>数据存储：<ol><li>mysql，hdfs，hbase</li></ol></li><li>数据计算<ol><li>hive，tez on hive， spark，flink</li></ol></li><li>数据查询<ol><li>Presto</li><li>Druid</li><li>Impala</li><li>Kylin</li></ol></li><li>数据可视化<ol><li>Echarts，QuickBI，DataV</li></ol></li><li>任务调度<ol><li>Azkaban，Oozie + CDH</li></ol></li><li>集群监控<ol><li>Zabbix</li></ol></li><li>元数据管理<ol><li>Atlas</li></ol></li><li>数据质量监控<ol><li>Griffin</li></ol></li></ol><h2 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h2><ol><li>数据仓库工具箱—维度建模权威指南</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> big-data </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> big-data </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Kafka 吞吐为什么高</title>
       <link href="/2020/07/02/why-kafka-so-fast.html"/>
       <url>/2020/07/02/why-kafka-so-fast.html</url>
