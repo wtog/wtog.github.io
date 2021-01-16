@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>HDFS 架构</title>
+      <link href="2021/01/13/hdfs-architecture.html"/>
+      <url>2021/01/13/hdfs-architecture.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>HDFS全称是Hadoop Distributed System。<br>HDFS是为以流的方式存取大文件而设计的, 适用于几百MB，GB以及TB，读多写少的场合。<br>而对于低延时数据访问、大量小文件、同时写和任意的文件修改，则并不是十分适合。</p><h3 id="HDFS-架构"><a href="#HDFS-架构" class="headerlink" title="HDFS 架构"></a>HDFS 架构</h3><img data-original="hdfs-architecture/hdfs-architecture.png" class="lazy" alt="hdfs-architecture" src="/images/squares.svg"> <p>HDFS包括元数据节点（NameNode）、数据节点（DataNode）</p><p><strong>NameNode 管理文件系统的命名空间</strong></p><ul><li>其将所有的文件和文件夹的元数据保存在一个文件系统树中</li><li>这些信息也会在硬盘上保存成以下文件：命名空间镜像(namespace image)及修改日志(edit log)</li><li>保存一个文件包括哪些数据块，分布在哪些数据节点上。然而这些信息并不存储在硬盘上，而是在系统启动的时候从 datanode 收集而成的</li></ul><p><strong>DataNode 文件系统中真正存储数据的地方</strong></p><ul><li>客户端(client)或者元数据信息(namenode)可以向 datanode 请求写入或者读出数据块</li><li>其周期性的向元数据节点回报其存储的数据块信息</li></ul><p><strong>Block 数据块</strong></p><ul><li>在任何文件系统中，都将数据存储为 block 的集合。block 是硬盘上存储数据的不连续的位置。</li><li>HDFS 不会将每个文件存储在配置的 block 大小的确切倍数中。比如每个 block 的默认大小为 128M, 一个 514M 的文件将会存储在5个block 中, 前4个 block 大小为 128M，但是最后一个 block 的大小则仅为 2M</li></ul><p><strong>Metadata 元数据</strong></p><ul><li>NameNode 将整个 namespace，包括 block 到文件的映射、文件的属性等，都存储在一个称为 FsImage 的文件中，<br>它被存放在内存以及本地文件系统中。而任何对于 namespace 元数据产生修改的操作，NameNode 都会使用一种称为 EditLog 的事务日志记录下来。</li><li>例如在 HDFS 中创建一个文件，NameNode 就会在 EditLog 中插入一条记录来表示；同样的，修改文件的副本系数也将往 EditLog 插入一条记录。</li><li>当 NameNode 启动时，它会从硬盘中读取 EditLog 和 FsImage，将所有 EditLog 中的事务作用在内存中的 FsImage 上<br>并将这个新版本的 FsImage 从内存中保存到本地磁盘上，然后删除旧的 EditLog，这个过程也被称为一个 checkpoint。</li><li>通过 NameNode 上的元数据可以确定 block 到具体 DataNode 节点的一个映射，所以客户端在读取或者写入数据到 HDFS 时，<br>都是先到 NameNode 上获取元数据，然后根据元数据中的地址直接与 DataNode 交互，与此同时，客户端会缓存一段时间的元数据，从而减少与 NameNode 的交互。</li></ul><h3 id="HDFS-读流程"><a href="#HDFS-读流程" class="headerlink" title="HDFS 读流程"></a>HDFS 读流程</h3><p>先会请求namenode，从namenode获取数据的信息（存储在哪些节点）<br>然后选择最近的datanode节点读取数据，然后将从各个节点读取来的信息合并成一个完整的文件</p><img data-original="hdfs-architecture/hdfs-read.png" class="lazy" alt="hdfs-read" src="/images/squares.svg"> <h3 id="HDFS-写流程"><a href="#HDFS-写流程" class="headerlink" title="HDFS 写流程"></a>HDFS 写流程</h3><ol><li>向namenode请求上传文件，namenode响应后，客户端请求上传一个块（block）</li><li>namenode 响应 一个datanode，客户端向该DataNode发送数据，以packet为单位进行传输，每个DataNode之间建立pipeline通道，同时向所有的DataNode上传数据。即第一个数据节点将它接收到的一部分数据块发送给第二个数据节点。第二个数据节点将其接收到的一部分数据发送给第三个数据节点</li></ol><img data-original="hdfs-architecture/hdfs-write.png" class="lazy" alt="hdfs-write" src="/images/squares.svg"> <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ol><li>datanode 宕机, 数据如何恢复</li></ol><ul><li>由于 hdfs 有数据备份机制，datanode长时间宕机，数据已经备份到其他机器，数据不会丢失，重启即可</li></ul><h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://hexiaoqiao.github.io/blog/2018/03/30/the-analysis-of-basic-principle-of-hdfs-ha-using-qjm/">https://hexiaoqiao.github.io/blog/2018/03/30/the-analysis-of-basic-principle-of-hdfs-ha-using-qjm/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> big-data </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> big-data </tag>
+            
+            <tag> hdfs </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>数仓概览</title>
       <link href="2020/07/30/data-warehouse.html"/>
       <url>2020/07/30/data-warehouse.html</url>
